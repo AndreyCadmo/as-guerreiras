@@ -44,7 +44,7 @@ export default function Home() {
             Localizado em uma charmosa comunidade caiçara de Santos, o <span className="font-bold text-slate-900">Quiosque As Guerreiras</span> oferece um ambiente familiar e aconchegante de frente para o rio, com uma vista incrível e entrada totalmente gratuita na ilha.
           </p>
           <p className="text-slate-600 text-sm md:text-base leading-relaxed">
-            Aqui, além de desfrutar de almoços frescos servidos até as 16h e porções deliciosas até mais tarde, você pode aproveitar nossos <span className="font-bold text-slate-900">passeios de barco por apenas R$ 35 por pessoa</span> ou agendar um tour monitorado repleto de cultura e paisagens inesquecíveis.
+            Aqui, além de desfrutar de almoços frescos servidos até as 16h e porções deliciosas até mais tarde, você pode aproveitar nossos <span className="font-bold text-slate-900">passeios de barco por apenas R$ 40 por pessoa</span> ou agendar um tour monitorado repleto de cultura e paisagens inesquecíveis.
           </p>
           <div className="pt-2">
             <a href="/sobre" className="text-amber-600 hover:text-amber-700 font-bold text-sm inline-flex items-center gap-1 transition-colors">
@@ -91,7 +91,7 @@ export default function Home() {
                 </div>
                 <div className="border-t border-slate-100 pt-4 mt-6 flex justify-between items-center">
                   <span className="text-slate-400 text-xs font-medium">Preço</span>
-                  <span className="text-amber-600 font-mono font-black text-xl">R$ {prato.preco}</span>
+                  <span className="text-amber-600 font-mono font-black text-xs">CONSULTAR NO LOCAL</span>
                 </div>
               </div>
             ))}

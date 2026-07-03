@@ -1,65 +1,126 @@
-import Image from "next/image";
+import React from 'react';
+import Instagram from './components/instagram';
+import GoogleReviews from './components/google';
+import Footer from './components/footer';
 
 export default function Home() {
+  const principaisPratos = [
+    {
+      nome: "Camarão Empanado Completo",
+      preco: "150,00",
+      descricao: "Camarão crocante de altíssima qualidade acompanhado de arroz soltinho, batata frita e molho especial da casa.",
+      tag: "🥇 O Especial da Casa"
+    },
+    {
+      nome: "Filé de Peixe com Molho de Camarão",
+      preco: "130,00",
+      descricao: "Peixe grelhado leve e saboroso, coberto com um molho de camarão cremoso e aquele toque caiçara do mar.",
+      tag: "⭐ O Mais Pedido"
+    },
+    {
+      nome: "Moqueca Caiçara (Vegana)",
+      preco: "39.00",
+      descricao: "Deliciosa moqueca individual de palmito e banana-da-terra, pimentões selecionados, tomates e leite de coco. Acompanha arroz.",
+      tag: "🌱 Sucesso Vegano"
+    }
+  ];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="bg-white text-slate-800 min-h-screen font-sans overflow-x-hidden">
+
+      <section className="relative py-28 px-4 text-center bg-slate-950 border-b border-slate-200 text-white">
+        <div className="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200')] bg-cover bg-center"></div>
+        <div className="relative z-10 max-w-3xl mx-auto space-y-4">
+          <span className="text-amber-500 font-bold uppercase tracking-widest text-xs bg-slate-900 px-4 py-1.5 rounded-full border border-slate-800">
+            Quiosque & Restaurante
+          </span>
+          <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight">
+            As Guerreiras <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-amber-600">
+              Sabor Caiçara, Comida de Verdade!
+            </span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-slate-300 text-sm md:text-base max-w-xl mx-auto">
+            Descubra uma experiência gastronômica e turística única em meio à natureza preservada da Ilha Diana, em Santos.
           </p>
+          <div className="flex flex-wrap justify-center gap-4 pt-4">
+            <a href="/cardapio" className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-6 py-3 rounded-xl text-sm transition-all shadow-lg shadow-amber-500/10">
+              📋 Ver Cardápio Completo
+            </a>
+            <a href="/reservas" className="bg-slate-900 hover:bg-slate-800 text-white border border-slate-700 font-bold px-6 py-3 rounded-xl text-sm transition-all">
+              📅 Reservar uma Mesa
+            </a>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 py-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <span className="text-amber-600 font-bold text-xs uppercase tracking-wider block">Um refúgio escondido</span>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900">Conheça a Ilha Diana</h2>
+          </div>
+          <p className="text-slate-600 text-sm md:text-base leading-relaxed">
+            Localizado em uma charmosa comunidade caiçara de Santos, o <span className="font-bold text-slate-900">Quiosque As Guerreiras</span> oferece um ambiente familiar e aconchegante de frente para o rio, com uma vista incrível e entrada totalmente gratuita na ilha.
+          </p>
+          <p className="text-slate-600 text-sm md:text-base leading-relaxed">
+            Aqui, além de desfrutar de almoços frescos servidos até as 16h e porções deliciosas até mais tarde, você pode aproveitar nossos <span className="font-bold text-slate-900">passeios de barco por apenas R$ 35 por pessoa</span> ou agendar um tour monitorado repleto de cultura e paisagens inesquecíveis.
+          </p>
+          <div className="pt-2">
+            <a href="/about" className="text-amber-600 hover:text-amber-700 font-bold text-sm inline-flex items-center gap-1 transition-colors">
+              📖 Leia nossa história completa de superação e fé →
+            </a>
+          </div>
         </div>
-      </main>
+        <div className="relative h-[380px] rounded-3xl overflow-hidden border border-slate-100 shadow-xl">
+          <img
+            src="./images/local.png"
+            alt="Ambiente do Quiosque de frente para a água"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm border border-slate-100 p-4 rounded-2xl max-w-xs shadow-lg">
+            <p className="text-xs font-bold text-amber-600">📍 Como Chegar:</p>
+            <p className="text-[11px] text-slate-600 mt-0.5 leading-relaxed font-medium">
+              Pegue a barca no Centro de Santos. Ao desembarcar na ilha, atravesse a ponte amarela até o fim, vire à direita e ande 100 metros!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-slate-50 border-y border-slate-100 py-24 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16 space-y-2">
+            <span className="text-amber-600 font-bold text-xs uppercase tracking-wider block">Recomendações da Cozinha</span>
+            <h2 className="text-3xl font-black text-slate-900">Os 3 Principais Pratos da Casa</h2>
+            <p className="text-slate-500 text-xs md:text-sm max-w-md mx-auto">
+              Separamos os queridinhos dos nossos clientes que você não pode deixar de experimentar.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {principaisPratos.map((prato, idx) => (
+              <div key={idx} className="bg-white border border-slate-100 rounded-3xl p-6 flex flex-col justify-between hover:shadow-xl transition-all duration-300 shadow-sm">
+                <div className="space-y-4">
+                  <span className="text-[10px] font-bold bg-amber-50 text-amber-600 px-2.5 py-1 rounded-full border border-amber-100 w-max block">
+                    {prato.tag}
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-lg text-slate-900">{prato.nome}</h3>
+                    <p className="text-xs text-slate-500 mt-1.5 leading-relaxed">{prato.descricao}</p>
+                  </div>
+                </div>
+                <div className="border-t border-slate-100 pt-4 mt-6 flex justify-between items-center">
+                  <span className="text-slate-400 text-xs font-medium">Preço</span>
+                  <span className="text-amber-600 font-mono font-black text-xl">R$ {prato.preco}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <GoogleReviews />
+      <Instagram />
     </div>
   );
 }

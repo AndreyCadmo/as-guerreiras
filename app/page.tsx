@@ -47,7 +47,7 @@ export default function Home() {
             Aqui, além de desfrutar de almoços frescos servidos até as 16h e porções deliciosas até mais tarde, você pode aproveitar nossos <span className="font-bold text-slate-900">passeios de barco por apenas R$ 35 por pessoa</span> ou agendar um tour monitorado repleto de cultura e paisagens inesquecíveis.
           </p>
           <div className="pt-2">
-            <a href="/about" className="text-amber-600 hover:text-amber-700 font-bold text-sm inline-flex items-center gap-1 transition-colors">
+            <a href="/sobre" className="text-amber-600 hover:text-amber-700 font-bold text-sm inline-flex items-center gap-1 transition-colors">
               📖 Leia nossa história completa de superação e fé →
             </a>
           </div>

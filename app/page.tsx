@@ -2,29 +2,9 @@ import React from 'react';
 import Instagram from './components/instagram';
 import GoogleReviews from './components/google';
 import Footer from './components/footer';
+import { principaisPratos } from './data/cardapio';
 
 export default function Home() {
-  const principaisPratos = [
-    {
-      nome: "Camarão Empanado Completo",
-      preco: "150,00",
-      descricao: "Camarão crocante de altíssima qualidade acompanhado de arroz soltinho, batata frita e molho especial da casa.",
-      tag: "🥇 O Especial da Casa"
-    },
-    {
-      nome: "Filé de Peixe com Molho de Camarão",
-      preco: "130,00",
-      descricao: "Peixe grelhado leve e saboroso, coberto com um molho de camarão cremoso e aquele toque caiçara do mar.",
-      tag: "⭐ O Mais Pedido"
-    },
-    {
-      nome: "Moqueca Caiçara (Vegana)",
-      preco: "39.00",
-      descricao: "Deliciosa moqueca individual de palmito e banana-da-terra, pimentões selecionados, tomates e leite de coco. Acompanha arroz.",
-      tag: "🌱 Sucesso Vegano"
-    }
-  ];
-
   return (
     <div className="bg-white text-slate-800 min-h-screen font-sans overflow-x-hidden">
 

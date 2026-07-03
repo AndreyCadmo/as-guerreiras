@@ -1,10 +1,10 @@
 'use client'
 
 import { useState } from 'react';
-import { porcoes, aLaCarte, individuais, sobremesas, bebidas, ItemCardapio } from '../../data/cardapio';
+import { porcoes, aLaCarte, individuais, sobremesas, bebidas, ItemCardapio, veganos, drinks, energeticos, cervejasGeladas, variados, doses, vegetarianos } from '../../data/cardapio';
 
 export default function Page() {
-    const [categoriaAtiva, setCategoriaAtiva] = useState<'principais' | 'individuais' | 'bebidas'>('principais');
+    const [categoriaAtiva, setCategoriaAtiva] = useState<'principais' | 'individuais' | 'bebidas' | 'veganos'>('principais');
 
     return (
         <div className="bg-white text-slate-800 min-h-screen font-sans flex flex-col justify-between">
@@ -18,14 +18,21 @@ export default function Page() {
                         <h1 className="text-4xl font-black mt-3 text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">
                             Sabor Caiçara, Comida de Verdade!
                         </h1>
-                        <p className="text-slate-400 mt-2 text-xs md:text-sm">
-                            Ambiente familiar, de frente para o rio e uma vista incrível na Ilha Diana.
-                        </p>
+                        <div className="text-center mt-4 space-y-2 max-w-xl mx-auto">
+                            <p className="text-slate-400 text-xs md:text-sm font-medium">
+                                Ambiente familiar, de frente para o rio e uma vista incrível na Ilha Diana.
+                            </p>
+                            <p className="text-[10px] md:text-xs text-amber-500/80 tracking-wide font-semibold uppercase flex items-center justify-center gap-1.5 bg-amber-500/5 py-1.5 px-4 rounded-full max-w-sm md:max-w-max mx-auto border border-amber-500/10 text-center whitespace-normal md:whitespace-nowrap">
+                                <span>🐟</span>
+                                <span>Cardápio exclusivamente caiçara (Sem opções de carne)</span>
+                            </p>
+                        </div>
                     </div>
+
                 </div>
 
-                <div className="max-w-6xl mx-auto px-4 mt-10">
-                    <div className="flex bg-slate-50 p-1 rounded-2xl max-w-lg mx-auto border border-slate-100 shadow-sm">
+                <div className="max-w-7xl mx-auto px-4 mt-10">
+                    <div className="flex bg-slate-50 p-1 rounded-2xl max-w-lvh mx-auto border border-slate-100 shadow-sm">
                         <button
                             onClick={() => setCategoriaAtiva('principais')}
                             className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all duration-200 ${categoriaAtiva === 'principais'
@@ -52,6 +59,16 @@ export default function Page() {
                                 }`}
                         >
                             🍹 Drinks & Bebidas
+                        </button>
+
+                        <button
+                            onClick={() => setCategoriaAtiva('veganos')}
+                            className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all duration-200 ${categoriaAtiva === 'veganos'
+                                ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/10'
+                                : 'text-slate-500 hover:text-slate-800'
+                                }`}
+                        >
+                            🌱 Veganos & Vegetarianos
                         </button>
                     </div>
                 </div>
@@ -109,66 +126,126 @@ export default function Page() {
                         </div>
                     )}
 
+                    {categoriaAtiva === 'veganos' && (
+                        <div className="space-y-12">
+                            <div>
+                                <h2 className="text-xl font-black text-slate-900 border-b border-slate-100 pb-3 mb-6 uppercase tracking-wide">
+                                    🌴 Pratos Veganos
+                                </h2>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    {veganos.map((item, idx) => (
+                                        <CardItem key={idx} item={item} />
+                                    ))}
+                                </div>
+                                <h2 className="text-xl font-black text-slate-900 border-b border-slate-100 mt-12 pb-3 mb-6 uppercase tracking-wide">
+                                    🥗 Pratos Vegetarianos
+                                </h2>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    {vegetarianos.map((item, idx) => (
+                                        <CardItem key={idx} item={item} />
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
                     {categoriaAtiva === 'bebidas' && (
                         <div>
                             <h2 className="text-xl font-black text-slate-900 border-b border-slate-100 pb-3 mb-6 uppercase tracking-wide">
-                                🍻 Bebidas e Drinks da Casa
+                                🍻 Bebidas
                             </h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {bebidas.map((item, idx) => (
                                     <CardItem key={idx} item={item} />
                                 ))}
                             </div>
+                            <h2 className="text-xl font-black text-slate-900 border-b border-slate-100 mt-12 pb-3 mb-6 uppercase tracking-wide">
+                                🍹 Drinks da Casa
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {drinks.map((item, idx) => (
+                                    <CardItem key={idx} item={item} />
+                                ))}
+                            </div>
+                            <h2 className="text-xl font-black text-slate-900 border-b border-slate-100 mt-12 pb-3 mb-6 uppercase tracking-wide">
+                                🥤 Energéticos
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {energeticos.map((item, idx) => (
+                                    <CardItem key={idx} item={item} />
+                                ))}
+                            </div>
+                            <h2 className="text-xl font-black text-slate-900 border-b border-slate-100 mt-12 pb-3 mb-6 uppercase tracking-wide">
+                                🍺 Cervejas
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {cervejasGeladas.map((item, idx) => (
+                                    <CardItem key={idx} item={item} />
+                                ))}
+                            </div>
+                            <h2 className="text-xl font-black text-slate-900 border-b border-slate-100 mt-12 pb-3 mb-6 uppercase tracking-wide">
+                                🍹 Variados
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {variados.map((item, idx) => (
+                                    <CardItem key={idx} item={item} />
+                                ))}
+                            </div>
+                            <h2 className="text-xl font-black text-slate-900 border-b border-slate-100 mt-12 pb-3 mb-6 uppercase tracking-wide">
+                                🥂 Doses
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {doses.map((item, idx) => (
+                                    <CardItem key={idx} item={item} />
+                                ))}
+                            </div>
                         </div>
                     )}
-
                     <div className="mt-16 text-center border-t border-slate-100 pt-8 text-slate-400 text-xs space-y-2 font-medium">
                         <p>❤️ A gente cozinha com amor para você voltar sempre!</p>
                         <p>🥡 Taxa de Marmita: R$ 1,00 | Gelo ou Limão Extra: R$ 1,00</p>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }
 
-function CardItem({ item, showMeia = false }: { item: ItemCardapio; showMeia?: boolean }) {
+function CardItem({ item }: { item: ItemCardapio; showMeia?: boolean }) {
     return (
-        <div className="bg-white p-5 rounded-2xl border border-slate-100 hover:shadow-md transition-all duration-300 flex flex-col justify-between gap-2 shadow-sm">
+        <div className="bg-white p-5 rounded-2xl border border-slate-100 hover:shadow-md transition-all duration-300 flex flex-col justify-between gap-4 shadow-sm">
             <div>
                 <div className="flex justify-between items-start gap-4">
                     <h3 className="font-bold text-base text-slate-900">{item.nome}</h3>
-                    <div className="text-right flex-shrink-0">
-                        <span className="text-amber-600 font-mono font-black text-base">
-                            R$ {item.preco.toFixed(2)}
-                        </span>
-                        {showMeia && item.precoMeia && (
-                            <span className="block text-[10px] text-slate-400 font-mono mt-0.5 font-medium">
-                                Meia: R$ {item.precoMeia.toFixed(2)}
-                            </span>
-                        )}
-                    </div>
                 </div>
                 {item.descricao && (
                     <p className="text-xs text-slate-500 mt-1 leading-relaxed">{item.descricao}</p>
                 )}
             </div>
 
-            {item.tags && item.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1 mt-2">
-                    {item.tags.map((tag, i) => (
-                        <span
-                            key={i}
-                            className={`text-[9px] px-2 py-0.5 rounded-full border font-bold ${tag.includes("Especial") || tag.includes("Mais Pedido") || tag.includes("Exclusiva")
-                                ? "bg-amber-50 text-amber-600 border-amber-100"
-                                : "bg-slate-50 text-slate-500 border-slate-100"
-                                }`}
-                        >
-                            {tag}
-                        </span>
-                    ))}
-                </div>
-            )}
+            <div className="flex items-center justify-between gap-2 mt-auto pt-2 border-t border-slate-50/80">
+                {item.tags && item.tags.length > 0 ? (
+                    <div className="flex flex-wrap gap-1">
+                        {item.tags.map((tag, i) => (
+                            <span
+                                key={i}
+                                className={`text-[9px] px-2 py-0.5 rounded-full border font-bold ${tag.includes("Especial") || tag.includes("Mais Pedido") || tag.includes("Exclusiva")
+                                    ? "bg-amber-50 text-amber-600 border-amber-100"
+                                    : "bg-slate-50 text-slate-500 border-slate-100"
+                                    }`}
+                            >
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+                ) : (
+                    <div />
+                )}
+
+                <span className="text-[10px] bg-slate-50 text-slate-400 font-medium px-2 py-1 rounded-lg border border-slate-100 whitespace-nowrap">
+                    📋 Valor no local
+                </span>
+            </div>
         </div>
     );
 }

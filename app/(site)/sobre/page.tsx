@@ -92,7 +92,7 @@ export default function About() {
                         <ul className="space-y-3 text-xs md:text-sm font-medium">
                             <li className="flex items-start gap-2">
                                 <span>🚤</span>
-                                <div><strong>Passeio de Barco:</strong> Apenas R$ 35 por pessoa pela região.</div>
+                                <div><strong>Passeio de Barco:</strong> Apenas R$ 40 por pessoa pela região.</div>
                             </li>
                             <li className="flex items-start gap-2">
                                 <span>📸</span>

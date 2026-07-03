@@ -1,25 +1,41 @@
 'use client'
 
 import { useState } from 'react';
+import { DayPicker } from 'react-day-picker';
+import { format, isBefore, startOfDay } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+import 'react-day-picker/dist/style.css';
 
 export default function Reserve() {
     const [tipoReserva, setTipoReserva] = useState<'mesa' | 'pacote'>('mesa');
     const [nome, setNome] = useState('');
-    const [dataHora, setDataHora] = useState('');
+    const [dataSelecionada, setDataSelecionada] = useState<Date | undefined>(undefined);
+    const [mostrarCalendario, setMostrarCalendario] = useState(false);
+    const [hora, setHora] = useState('11:00');
     const [pessoas, setPessoas] = useState('');
     const [preferenciaMesa, setPreferenciaMesa] = useState('');
+    const [erroPessoas, setErroPessoas] = useState(false);
 
     const TELEFONE_QUIOSQUE = "5513974010251";
+
+    const horariosDisponiveis = [
+        "11:00", "12:00", "13:00", "14:00", "15:00",
+        "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"
+    ];
+
+    const bloquearData = (day: Date) => {
+        const hoje = startOfDay(new Date());
+        const diaSemana = day.getDay();
+        return isBefore(day, hoje) || diaSemana === 1 || diaSemana === 2;
+    };
 
     const handleEnviarReserva = (e: React.FormEvent) => {
         e.preventDefault();
 
-        let dataHoraFormatada = '';
-        if (dataHora) {
-            const [dataParte, horaParte] = dataHora.split('T');
-            const [ano, mes, dia] = dataParte.split('-');
-            dataHoraFormatada = `${dia}/${mes}/${ano} às ${horaParte}`;
-        }
+        if (!dataSelecionada) return;
+        if (tipoReserva === 'mesa' && Number(pessoas) > 24) return;
+
+        const dataHoraFormatada = `${format(dataSelecionada, 'dd/MM/yyyy')} às ${hora}h`;
 
         let mensagem = '';
 
@@ -37,7 +53,7 @@ export default function Reserve() {
     };
 
     return (
-        <div className="w-full bg-slate-900 p-6 md:p-8 rounded-3xl shadow-xl border border-slate-800 text-white flex flex-col justify-between">
+        <div className="w-full bg-slate-900 p-6 md:p-8 rounded-3xl shadow-xl border border-slate-800 text-white flex flex-col justify-between relative">
             <div>
                 <div className="text-center mb-6">
                     <span className="text-amber-400 text-xs font-semibold tracking-wider uppercase">Agendamento Online</span>
@@ -50,19 +66,17 @@ export default function Reserve() {
                 <div className="flex bg-slate-950 p-1 rounded-xl mb-6">
                     <button
                         type="button"
-                        className={`flex-1 py-2.5 text-sm font-medium rounded-lg transition-all ${tipoReserva === 'mesa' ? 'bg-amber-500 text-slate-950 shadow font-bold' : 'text-slate-400 hover:text-white'
-                            }`}
-                        onClick={() => { setTipoReserva('mesa'); setPessoas(''); }}
+                        className={`flex-1 py-2.5 text-sm font-medium rounded-lg transition-all ${tipoReserva === 'mesa' ? 'bg-amber-500 text-slate-950 shadow font-bold' : 'text-slate-400 hover:text-white'}`}
+                        onClick={() => { setTipoReserva('mesa'); setPessoas(''); setErroPessoas(false); }}
                     >
                         🪑 Reservar Mesa
                     </button>
                     <button
                         type="button"
-                        className={`flex-1 py-2.5 text-sm font-medium rounded-lg transition-all ${tipoReserva === 'pacote' ? 'bg-amber-500 text-slate-950 shadow font-bold' : 'text-slate-400 hover:text-white'
-                            }`}
-                        onClick={() => { setTipoReserva('pacote'); setPessoas('15'); }}
+                        className={`flex-1 py-2.5 text-sm font-medium rounded-lg transition-all ${tipoReserva === 'pacote' ? 'bg-amber-500 text-slate-950 shadow font-bold' : 'text-slate-400 hover:text-white'}`}
+                        onClick={() => { setTipoReserva('pacote'); setPessoas('15'); setErroPessoas(false); }}
                     >
-                        🎉 Fechar Restaurante
+                        🎉 Fechar grupo
                     </button>
                 </div>
 
@@ -79,24 +93,45 @@ export default function Reserve() {
                         />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 relative">
+                        <div className="relative">
+                            <label className="block text-xs font-semibold text-slate-400 uppercase mb-1">Data</label>
+                            <button
+                                type="button"
+                                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-colors text-white text-left flex justify-between items-center"
+                                onClick={() => setMostrarCalendario(!mostrarCalendario)}
+                            >
+                                <span>{dataSelecionada ? format(dataSelecionada, 'dd/MM/yyyy') : "Selecione o dia"}</span>
+                                <span className="text-slate-500 text-xs">📅</span>
+                            </button>
+
+                            {mostrarCalendario && (
+                                <div className="absolute z-50 mt-2 p-3 bg-slate-950 border border-slate-800 rounded-2xl shadow-2xl left-0 top-full text-white card-calendario">
+                                    <DayPicker
+                                        mode="single"
+                                        selected={dataSelecionada}
+                                        onSelect={(dia) => {
+                                            setDataSelecionada(dia);
+                                            setMostrarCalendario(false);
+                                        }}
+                                        disabled={bloquearData}
+                                        locale={ptBR}
+                                    />
+                                </div>
+                            )}
+                        </div>
+
                         <div>
-                            <label className="block text-xs font-semibold text-slate-400 uppercase mb-1">Data e Horário</label>
-                            <input
-                                type="datetime-local"
-                                required
-                                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-colors text-white cursor-pointer
-        [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:opacity-70 hover:[&::-webkit-calendar-picker-indicator]:opacity-100"
-                                value={dataHora}
-                                onChange={(e) => setDataHora(e.target.value)}
-                                onClick={(e) => {
-                                    try {
-                                        (e.target as HTMLInputElement).showPicker();
-                                    } catch (err) {
-                                        console.log(err);
-                                    }
-                                }}
-                            />
+                            <label className="block text-xs font-semibold text-slate-400 uppercase mb-1">Horário</label>
+                            <select
+                                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-colors text-white cursor-pointer"
+                                value={hora}
+                                onChange={(e) => setHora(e.target.value)}
+                            >
+                                {horariosDisponiveis.map((h) => (
+                                    <option key={h} value={h}>{h} h</option>
+                                ))}
+                            </select>
                         </div>
 
                         <div>
@@ -106,10 +141,16 @@ export default function Reserve() {
                                     type="number"
                                     required
                                     min="1"
+                                    max="24"
                                     placeholder="Ex: 4"
-                                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-colors"
+                                    className={`w-full bg-slate-950 border rounded-xl px-4 py-3 text-sm focus:outline-none transition-colors ${erroPessoas ? 'border-red-500 focus:border-red-500' : 'border-slate-700 focus:border-amber-500'}`}
                                     value={pessoas}
-                                    onChange={(e) => setPessoas(e.target.value)}
+                                    onChange={(e) => {
+                                        const val = e.target.value;
+                                        setPessoas(val);
+                                        if (Number(val) > 24) setErroPessoas(true);
+                                        else setErroPessoas(false);
+                                    }}
                                 />
                             ) : (
                                 <select
@@ -117,13 +158,19 @@ export default function Reserve() {
                                     value={pessoas}
                                     onChange={(e) => setPessoas(e.target.value)}
                                 >
-                                    <option value="15">15 a 25 pessoas</option>
-                                    <option value="30">26 a 40 pessoas</option>
-                                    <option value="50">41 a 50 pessoas (Máximo)</option>
+                                    <option value="15">15 a 24 pessoas</option>
+                                    <option value="30">25 a 40 pessoas</option>
+                                    <option value="50">41 a 50 pessoas</option>
                                 </select>
                             )}
                         </div>
                     </div>
+
+                    {tipoReserva === 'mesa' && erroPessoas && (
+                        <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-xs py-2 px-4 rounded-xl text-center font-medium animate-pulse">
+                            ⚠️ Para reservas acima de 24 pessoas, selecione a opção <strong>"Fechar grupo"</strong> no topo do formulário.
+                        </div>
+                    )}
 
                     {tipoReserva === 'mesa' ? (
                         <div>
@@ -139,14 +186,21 @@ export default function Reserve() {
                     ) : (
                         <div className="bg-slate-950/50 p-4 rounded-xl border border-dashed border-slate-700 text-xs text-slate-400 space-y-1">
                             <p className="font-semibold text-amber-400">📌 Regras do Pacote Exclusivo:</p>
-                            <p>• O quiosque será fechado apenas para o seu grupo.</p>
-                            <p>• Capacidade permitida: Mínimo de 15 e máximo de 50 pessoas.</p>
+                            <p className="text-[11px] text-amber-500/90 font-medium pb-1">⚠️ Cardápio exclusivamente caiçara (Sem opções de carne vermelha ou suína)</p>
+                            <p className="pt-1">• Capacidade permitida: Mínimo de 15 e máximo de 50 pessoas.</p>
+                            <p className="text-slate-300">• O Quiosque será fechado apenas para grupos acima de 24 pessoas.</p>
+                            <p className="text-[11px] text-amber-500/90 font-medium pb-1">• Escolher pacote de acordo com o número de pessoas e itens desejados.</p>
+                            <p>• A reserva do pacote deve ser feita com antecedência mínima de 7 dias.</p>
                         </div>
                     )}
 
                     <button
                         type="submit"
-                        className="w-full bg-amber-500 text-slate-950 font-black py-3.5 px-4 rounded-xl hover:bg-amber-400 transition-colors shadow-lg shadow-amber-500/10 flex justify-center items-center gap-2 mt-2"
+                        disabled={!dataSelecionada || (tipoReserva === 'mesa' && erroPessoas)}
+                        className={`w-full font-black py-3.5 px-4 rounded-xl transition-colors shadow-lg flex justify-center items-center gap-2 mt-2 ${!dataSelecionada || (tipoReserva === 'mesa' && erroPessoas)
+                            ? 'bg-slate-800 text-slate-500 cursor-not-allowed shadow-none border border-slate-700/50'
+                            : 'bg-amber-500 text-slate-950 hover:bg-amber-400 shadow-amber-500/10'
+                            }`}
                     >
                         <span>💬 Enviar Solicitação via WhatsApp</span>
                     </button>

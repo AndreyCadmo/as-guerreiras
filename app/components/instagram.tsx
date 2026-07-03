@@ -5,22 +5,22 @@ import React from 'react';
 export default function Instagram() {
     const fotosInstagram = [
         {
-            urlPost: "https://www.instagram.com/p/DZBOKuqFqGA/",
+            urlPost: "https://www.instagram.com/p/DNvv2IxYkj3/",
             urlImagem: "./images/foto1.jpg",
             alt: "Post de Moqueca - As Guerreiras"
         },
         {
-            urlPost: "https://www.instagram.com/p/DWIe6hvDv1f/",
+            urlPost: "https://www.instagram.com/p/DVCvvBJgHVE/",
             urlImagem: "./images/foto2.jpg",
             alt: "Post de Frutos do Mar - As Guerreiras"
         },
         {
-            urlPost: "https://www.instagram.com/p/DVCvvBJgHVE/",
+            urlPost: "https://www.instagram.com/p/DWIe6hvDv1f/",
             urlImagem: "./images/foto3.jpg",
             alt: "Post da Ilha Diana - As Guerreiras"
         },
         {
-            urlPost: "https://www.instagram.com/p/DNvv2IxYkj3/",
+            urlPost: "https://www.instagram.com/p/DZBOKuqFqGA/",
             urlImagem: "./images/foto4.jpg",
             alt: "Post do Quiosque - As Guerreiras"
         }

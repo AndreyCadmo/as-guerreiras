@@ -91,7 +91,7 @@ export default function Header() {
                         📅 Reservas
                     </a>
                     <a
-                        href="/about"
+                        href="/sobre"
                         className="block py-2 text-amber-400 font-semibold"
                         onClick={() => setMenuAberto(false)}
                     >

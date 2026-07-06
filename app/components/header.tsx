@@ -35,6 +35,9 @@ export default function Header() {
                     <a href="/reservas" className="hover:text-amber-500 transition-colors">
                         Reservas
                     </a>
+                    <a href="/galeria" className="hover:text-amber-500 transition-colors">
+                        Galeria
+                    </a>
                     <a href="/sobre" className="hover:text-amber-500 transition-colors ">
                         Nossa História
                     </a>
@@ -89,6 +92,13 @@ export default function Header() {
                         onClick={() => setMenuAberto(false)}
                     >
                         📅 Reservas
+                    </a>
+                    <a
+                        href="/galeria"
+                        className="block py-2 text-slate-300 hover:text-white font-medium"
+                        onClick={() => setMenuAberto(false)}
+                    >
+                        📸 Galeria
                     </a>
                     <a
                         href="/sobre"

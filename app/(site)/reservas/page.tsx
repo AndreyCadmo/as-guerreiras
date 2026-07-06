@@ -26,17 +26,40 @@ export default function Page() {
                     <div className="bg-slate-900 text-white p-6 rounded-3xl border border-slate-800 shadow-xl flex flex-col justify-between flex-1">
                         <div>
                             <h3 className="font-black text-lg text-amber-400 flex items-center gap-2 mb-4">
-                                🕒 Horários do Quiosque
+                                🕒 Horários de Reservas & Funcionamento
                             </h3>
-                            <ul className="space-y-4 text-xs md:text-sm text-slate-300">
+
+                            <div className="bg-slate-950/40 p-4 rounded-2xl border border-slate-800/60 text-xs text-slate-300 space-y-4 mb-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-slate-400">
+                                    <div>
+                                        <p className="text-white font-bold text-[13px]">Dias Úteis</p>
+                                        <p className="text-[11px] text-slate-500 font-medium">(Qua a Sex)</p>
+                                        <p className="text-[11px] mt-1 text-slate-300">Reservas até 19h30</p>
+                                        <p className="text-[11px] text-amber-500/90 font-semibold">Fecha às 22h</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-white font-bold text-[13px]">Sábados</p>
+                                        <p className="text-[11px] text-slate-500 font-medium">(Atendimento normal)</p>
+                                        <p className="text-[11px] mt-1 text-slate-300">Reservas até 19h30</p>
+                                        <p className="text-[11px] text-amber-500/90 font-semibold">Fecha às 23h</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-white font-bold text-[13px]">Domingos</p>
+                                        <p className="text-[11px] text-slate-500 font-medium">(Atendimento normal)</p>
+                                        <p className="text-[11px] mt-1 text-slate-300">Reservas até 18h30</p>
+                                        <p className="text-[11px] text-amber-500/90 font-semibold">Fecha às 23h</p>
+                                    </div>
+                                </div>
+                                <p className="text-[10px] text-slate-500 pt-2 text-center border-t border-slate-800/60 font-medium">
+                                    Para demais horários ou dúvidas, contate-nos via WhatsApp.
+                                </p>
+                            </div>
+
+                            <ul className="space-y-3 text-xs md:text-sm text-slate-300">
                                 <li className="bg-amber-500/10 text-amber-400 p-3 rounded-2xl border border-amber-500/20 text-xs leading-relaxed font-medium">
                                     Aviso Importante (Até o final de Agosto): De quarta a sexta-feira, o atendimento é realizado somente com agendamento antecipado.
                                 </li>
-                                <li className="flex items-start gap-2 pt-1">
-                                    <span className="text-amber-500 font-bold">•</span>
-                                    <p><strong>Sábados e Domingos:</strong> Atendimento normal das 11h às 23h.</p>
-                                </li>
-                                <li className="flex items-start gap-2">
+                                <li className="flex items-start gap-2 pt-1 text-xs">
                                     <span className="text-amber-500 font-bold">•</span>
                                     <p><strong>Almoço Caiçara:</strong> Servido completo até às 16h. Após esse horário, trabalhamos com porções, drinks e sobremesas.</p>
                                 </li>

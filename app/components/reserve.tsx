@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { DayPicker } from 'react-day-picker';
 import { format, isBefore, startOfDay } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -15,13 +15,37 @@ export default function Reserve() {
     const [pessoas, setPessoas] = useState('');
     const [preferenciaMesa, setPreferenciaMesa] = useState('');
     const [erroPessoas, setErroPessoas] = useState(false);
+    const [horariosDisponiveis, setHorariosDisponiveis] = useState<string[]>([]);
 
     const TELEFONE_QUIOSQUE = "5513974010251";
 
-    const horariosDisponiveis = [
-        "11:00", "12:00", "13:00", "14:00", "15:00",
-        "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"
-    ];
+    const horariosDiasUteis = ["11:00", "12:30", "13:40", "15:30", "17:10", "18:30", "19:30"];
+    const horariosSábado = ["11:00", "12:30", "13:40", "16:30", "18:30", "19:30"];
+    const horariosDomingo = ["11:00", "14:00", "15:00", "15:30", "17:30", "18:30"];
+
+    useEffect(() => {
+        if (!dataSelecionada) {
+            setHorariosDisponiveis(horariosDiasUteis);
+            setHora('11:00');
+            return;
+        }
+
+        const diaSemana = dataSelecionada.getDay();
+        let novosHorarios: string[] = [];
+
+        if (diaSemana === 6) {
+            novosHorarios = horariosSábado;
+        } else if (diaSemana === 0) {
+            novosHorarios = horariosDomingo;
+        } else {
+            novosHorarios = horariosDiasUteis;
+        }
+
+        setHorariosDisponiveis(novosHorarios);
+        if (!novosHorarios.includes(hora)) {
+            setHora(novosHorarios[0]);
+        }
+    }, [dataSelecionada]);
 
     const bloquearData = (day: Date) => {
         const hoje = startOfDay(new Date());
@@ -87,7 +111,7 @@ export default function Reserve() {
                             type="text"
                             required
                             placeholder="Ex: Sara"
-                            className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-colors"
+                            className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-colors text-white"
                             value={nome}
                             onChange={(e) => setNome(e.target.value)}
                         />
@@ -143,7 +167,7 @@ export default function Reserve() {
                                     min="1"
                                     max="24"
                                     placeholder="Ex: 4"
-                                    className={`w-full bg-slate-950 border rounded-xl px-4 py-3 text-sm focus:outline-none transition-colors ${erroPessoas ? 'border-red-500 focus:border-red-500' : 'border-slate-700 focus:border-amber-500'}`}
+                                    className={`w-full bg-slate-950 border rounded-xl px-4 py-3 text-sm focus:outline-none transition-colors text-white ${erroPessoas ? 'border-red-500 focus:border-red-500' : 'border-slate-700 focus:border-amber-500'}`}
                                     value={pessoas}
                                     onChange={(e) => {
                                         const val = e.target.value;
@@ -154,7 +178,7 @@ export default function Reserve() {
                                 />
                             ) : (
                                 <select
-                                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-colors"
+                                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-colors text-white cursor-pointer"
                                     value={pessoas}
                                     onChange={(e) => setPessoas(e.target.value)}
                                 >
@@ -178,7 +202,7 @@ export default function Reserve() {
                             <input
                                 type="text"
                                 placeholder="Ex: Mesas de baixo, perto da água"
-                                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-colors"
+                                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-colors text-white"
                                 value={preferenciaMesa}
                                 onChange={(e) => setPreferenciaMesa(e.target.value)}
                             />
@@ -205,6 +229,27 @@ export default function Reserve() {
                         <span>💬 Enviar Solicitação via WhatsApp</span>
                     </button>
                 </form>
+
+                {tipoReserva === 'mesa' && (
+                    <div className="mt-8 pt-6 border-t border-slate-800 grid grid-cols-2 gap-4 text-[11px] text-slate-400 animate-fadeIn">
+                        <div className="bg-slate-950/40 p-3 rounded-xl border border-slate-800/50">
+                            <p className="text-amber-400 font-bold uppercase tracking-wider text-[9px] mb-1">🌿 Tradição Caiçara</p>
+                            <p className="leading-relaxed">Um ambiente autêntico e tradicional mantido por uma comunidade local acolhedora no coração da Ilha Diana.</p>
+                        </div>
+                        <div className="bg-slate-950/40 p-3 rounded-xl border border-slate-800/50">
+                            <p className="text-amber-400 font-bold uppercase tracking-wider text-[9px] mb-1">🍤 Frescor Garantido</p>
+                            <p className="leading-relaxed">Ingredientes selecionados e frutos do mar preparados na hora com o legítimo tempero caiçara tradicional.</p>
+                        </div>
+                        <div className="bg-slate-950/40 p-3 rounded-xl border border-slate-800/50">
+                            <p className="text-amber-400 font-bold uppercase tracking-wider text-[9px] mb-1">⚓ Sem Custos Extra</p>
+                            <p className="leading-relaxed">O serviço de agendamento e reserva de mesas é 100% gratuito. Você paga apenas o que consumir no local.</p>
+                        </div>
+                        <div className="bg-slate-950/40 p-3 rounded-xl border border-slate-800/50">
+                            <p className="text-amber-400 font-bold uppercase tracking-wider text-[9px] mb-1">👨‍👩‍👧 Ambiente Familiar</p>
+                            <p className="leading-relaxed">Espaço acolhedor, ideal para reunir amigos e familiares para desfrutar de uma refeição relaxante.</p>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

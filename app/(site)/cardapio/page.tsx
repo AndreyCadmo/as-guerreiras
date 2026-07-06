@@ -10,32 +10,31 @@ export default function Page() {
         <div className="bg-white text-slate-800 min-h-screen font-sans flex flex-col justify-between">
             <div>
                 <div className="bg-slate-950 py-16 px-4 text-center border-b border-slate-900 relative overflow-hidden text-white">
-                    <div className="absolute inset-0 opacity-5 bg-[url('/caminho-da-sua-imagem/logo-guerreiras.png')] bg-no-repeat bg-center bg-contain"></div>
+                    <div className="absolute inset-0 opacity-15 bg-[url('https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=1200&q=80')] bg-cover bg-center"></div>
                     <div className="relative z-10 max-w-2xl mx-auto">
-                        <span className="text-amber-500 font-bold uppercase tracking-wider text-xs bg-slate-900 px-3 py-1 rounded-full border border-slate-800">
+                        <span className="text-amber-500 font-bold uppercase tracking-wider text-xs bg-slate-900/90 px-3 py-1 rounded-full border border-slate-800 backdrop-blur-sm">
                             Cardápio Oficial
                         </span>
                         <h1 className="text-4xl font-black mt-3 text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">
                             Sabor Caiçara, Comida de Verdade!
                         </h1>
                         <div className="text-center mt-4 space-y-2 max-w-xl mx-auto">
-                            <p className="text-slate-400 text-xs md:text-sm font-medium">
+                            <p className="text-slate-300 text-xs md:text-sm font-medium drop-shadow-sm">
                                 Ambiente familiar, de frente para o rio e uma vista incrível na Ilha Diana.
                             </p>
-                            <p className="text-[10px] md:text-xs text-amber-500/80 tracking-wide font-semibold uppercase flex items-center justify-center gap-1.5 bg-amber-500/5 py-1.5 px-4 rounded-full max-w-sm md:max-w-max mx-auto border border-amber-500/10 text-center whitespace-normal md:whitespace-nowrap">
+                            <p className="text-[10px] md:text-xs text-amber-500/90 tracking-wide font-semibold uppercase flex items-center justify-center gap-1.5 bg-slate-950/80 py-1.5 px-4 rounded-full max-w-sm md:max-w-max mx-auto border border-amber-500/20 text-center leading-relaxed backdrop-blur-sm">
                                 <span>🐟</span>
                                 <span>Cardápio exclusivamente caiçara (Sem opções de carne)</span>
                             </p>
                         </div>
                     </div>
-
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 mt-10">
                     <div className="flex bg-slate-50 p-1 rounded-2xl max-w-lvh mx-auto border border-slate-100 shadow-sm">
                         <button
                             onClick={() => setCategoriaAtiva('principais')}
-                            className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all duration-200 ${categoriaAtiva === 'principais'
+                            className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all cursor-pointer duration-200 ${categoriaAtiva === 'principais'
                                 ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/10'
                                 : 'text-slate-500 hover:text-slate-800'
                                 }`}
@@ -44,7 +43,7 @@ export default function Page() {
                         </button>
                         <button
                             onClick={() => setCategoriaAtiva('individuais')}
-                            className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all duration-200 ${categoriaAtiva === 'individuais'
+                            className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all cursor-pointer duration-200 ${categoriaAtiva === 'individuais'
                                 ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/10'
                                 : 'text-slate-500 hover:text-slate-800'
                                 }`}
@@ -53,7 +52,7 @@ export default function Page() {
                         </button>
                         <button
                             onClick={() => setCategoriaAtiva('bebidas')}
-                            className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all duration-200 ${categoriaAtiva === 'bebidas'
+                            className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all cursor-pointer duration-200 ${categoriaAtiva === 'bebidas'
                                 ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/10'
                                 : 'text-slate-500 hover:text-slate-800'
                                 }`}
@@ -63,7 +62,7 @@ export default function Page() {
 
                         <button
                             onClick={() => setCategoriaAtiva('veganos')}
-                            className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all duration-200 ${categoriaAtiva === 'veganos'
+                            className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all cursor-pointer duration-200 ${categoriaAtiva === 'veganos'
                                 ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/10'
                                 : 'text-slate-500 hover:text-slate-800'
                                 }`}
